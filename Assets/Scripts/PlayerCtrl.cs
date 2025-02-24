@@ -14,6 +14,7 @@ public class PlayerCtrl : MonoBehaviour
     public Transform Campos;
     public GameObject Item;
 
+
     void Start()
     {
         cam = Camera.main;
@@ -25,19 +26,22 @@ public class PlayerCtrl : MonoBehaviour
 
     void Update()
     {
-        //카메라 회전
+
         cam.transform.position = Campos.position;
         mouseX += Input.GetAxis("Mouse X");
         mouseY -= Input.GetAxis("Mouse Y");
         cam.transform.rotation = Quaternion.Euler(mouseY * camRotSpeed, mouseX * camRotSpeed, 0);
         transform.rotation = Quaternion.Euler(0, mouseX * camRotSpeed, 0);
+        mouseY = Mathf.Clamp(mouseY, -90f, 90f);
 
-        //키 입력받고 움직임
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        Vector3 velocity = new Vector3(move.x * moveSpeed, rb.velocity.y, move.z * moveSpeed);
-        rb.velocity = velocity;
+
+        transform.Translate(move * moveSpeed * Time.deltaTime, Space.World);
+
+        float speed = new Vector2(moveX, moveZ).magnitude;
+        animator.SetFloat("Speed", speed);
         if (moveX + moveZ >= 0.1f)
         {
             moveSpeedMultiplier = 1f;
