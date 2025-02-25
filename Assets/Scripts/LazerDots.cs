@@ -1,46 +1,50 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LaserDots : MonoBehaviour
 {
-    public float laserRange = 20f; 
+    public float length = 20f;
     public GameObject dotPrefab;
-    private GameObject dot;  
+    int Xwidth = 3;
+    int Ywidth = 3;
+    int minA = -30;
+    int maxA = 30;
+
+    private List<GameObject> dots = new List<GameObject>();
 
     void Update()
     {
-        Vector3 startPos = transform.position;  
-        Vector3 direction = transform.forward;  
+        Vector3 startPos = transform.position;
+        List<GameObject> Dot = new List<GameObject>();
 
-        Debug.DrawRay(startPos, direction * laserRange, Color.red);
-        RaycastHit hit;
-
-        if (Physics.Raycast(startPos, direction, out hit, laserRange))
+        for (int x = minA; x <= maxA; x += Xwidth)
         {
-            if (dot == null) 
+            for (int y = -maxA; y <= maxA; y += Ywidth)
             {
-                CreateDot(hit.point);
-            }
-            else if (dot.transform.position != hit.point) 
-            {
-                UpdateDotPosition(hit.point);
+                Quaternion rotation = transform.rotation * Quaternion.Euler(x, y, 0);
+                Vector3 direction = rotation * Vector3.forward;
+                Debug.DrawRay(startPos, direction * length, Color.red);
+                RaycastHit hit;
+                if (Physics.Raycast(startPos, direction, out hit, length))
+                {
+                    GameObject dot = AddDot(hit.point);
+                    Dot.Add(dot);
+                }
             }
         }
-        else
+        foreach (var dot in dots)
         {
-            if (dot != null)
+            if (!Dot.Contains(dot))
             {
                 Destroy(dot);
             }
         }
+        dots = Dot; 
     }
 
-    void CreateDot(Vector3 position)
+    GameObject AddDot(Vector3 pos)
     {
-        dot = Instantiate(dotPrefab, position, transform.rotation);  // 도트 생성
-    }
-
-    void UpdateDotPosition(Vector3 newPosition)
-    {
-        dot.transform.position = newPosition;  // 도트 위치만 갱신
+        GameObject dot = Instantiate(dotPrefab, pos, transform.rotation);
+        return dot;
     }
 }
