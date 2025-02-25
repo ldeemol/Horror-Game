@@ -29,6 +29,7 @@ public class ScreanCap : MonoBehaviour
                 TakePoto();
             }
         }
+        /*
         //if (Input.GetKeyDown(KeyCode.G))
         //{
         //    if (MenuClickCount % 2 == 0) 
@@ -41,6 +42,7 @@ public class ScreanCap : MonoBehaviour
         //    }
         //    MenuClickCount++;
         //}
+        */
         if (Input.GetKeyDown(KeyCode.G))
         {
             Panel.SetActive(!Panel.activeSelf);
