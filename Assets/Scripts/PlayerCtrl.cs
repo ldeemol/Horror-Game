@@ -6,18 +6,18 @@ public class PlayerCtrl : MonoBehaviour
     float camRotSpeed = 1;
     float mouseX;
     float mouseY;
-    Camera cam;
+    Camera PlayerCam;
     private Rigidbody rb;
-    float moveSpeed = 5f; // 이동 속도
+    float moveSpeed = 5f; 
     float moveSpeedMultiplier;
     public Transform Spine;
     public Transform Campos;
-    public GameObject Item;
+    public GameObject[]  Item;
 
 
     void Start()
     {
-        cam = Camera.main;
+        PlayerCam = Camera.main;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         animator = GetComponent<Animator>();
@@ -27,10 +27,10 @@ public class PlayerCtrl : MonoBehaviour
     void Update()
     {
 
-        cam.transform.position = Campos.position;
+        PlayerCam.transform.position = Campos.position;
         mouseX += Input.GetAxis("Mouse X");
         mouseY -= Input.GetAxis("Mouse Y");
-        cam.transform.rotation = Quaternion.Euler(mouseY * camRotSpeed, mouseX * camRotSpeed, 0);
+        PlayerCam.transform.rotation = Quaternion.Euler(mouseY * camRotSpeed, mouseX * camRotSpeed, 0);
         transform.rotation = Quaternion.Euler(0, mouseX * camRotSpeed, 0);
         mouseY = Mathf.Clamp(mouseY, -90f, 90f);
 
@@ -58,8 +58,8 @@ public class PlayerCtrl : MonoBehaviour
     }
     private void LateUpdate()
     {
-        Spine.transform.LookAt(cam.transform);
-        Spine.rotation = cam.transform.rotation;
+        Spine.transform.LookAt(PlayerCam.transform);
+        Spine.rotation = PlayerCam.transform.rotation;
     }
 
 }
