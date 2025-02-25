@@ -36,7 +36,7 @@ public class LaserDots : MonoBehaviour
         {
             if (!Dot.Contains(dot))
             {
-                Destroy(dot);
+                //Destroy(dot);
             }
         }
         dots = Dot; 
