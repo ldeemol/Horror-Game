@@ -23,7 +23,7 @@ public class LaserDots : MonoBehaviour
             {
                 Quaternion rotation = transform.rotation * Quaternion.Euler(x, y, 0);
                 Vector3 direction = rotation * Vector3.forward;
-                Debug.DrawRay(startPos, direction * length, Color.red);
+                //Debug.DrawRay(startPos, direction * length, Color.red);
                 RaycastHit hit;
                 if (Physics.Raycast(startPos, direction, out hit, length))
                 {
@@ -36,7 +36,7 @@ public class LaserDots : MonoBehaviour
         {
             if (!Dot.Contains(dot))
             {
-                //Destroy(dot);
+                Destroy(dot);
             }
         }
         dots = Dot; 
