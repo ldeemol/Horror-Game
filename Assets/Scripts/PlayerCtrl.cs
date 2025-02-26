@@ -41,7 +41,7 @@ public class PlayerCtrl : MonoBehaviour
         transform.Translate(move * moveSpeed * Time.deltaTime, Space.World);
 
         float speed = new Vector2(moveX, moveZ).magnitude;
-        animator.SetFloat("Speed", speed);
+        animator.SetFloat("Move", speed);
         if (moveX + moveZ >= 0.1f)
         {
             moveSpeedMultiplier = 1f;

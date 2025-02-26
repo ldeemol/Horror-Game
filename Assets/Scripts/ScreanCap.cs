@@ -29,20 +29,6 @@ public class ScreanCap : MonoBehaviour
                 TakePoto();
             }
         }
-        /*
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    if (MenuClickCount % 2 == 0) 
-        //    {
-        //        Panel.SetActive(true);
-        //    }
-        //    if (MenuClickCount % 2 == 1) 
-        //    {
-        //        Panel.SetActive(false) ;
-        //    }
-        //    MenuClickCount++;
-        //}
-        */
         if (Input.GetKeyDown(KeyCode.G))
         {
             Panel.SetActive(!Panel.activeSelf);
